@@ -231,8 +231,8 @@ class Detect3DNode(LifecycleNode):
 
         center_x = int(detection.bbox.center.position.x)
         center_y = int(detection.bbox.center.position.y)
-        size_x = int(detection.bbox.size.x)
-        size_y = int(detection.bbox.size.y)
+        size_x = int(detection.bbox.size_x)
+        size_y = int(detection.bbox.size_y)
 
         if detection.mask.data:
             # crop depth image by mask

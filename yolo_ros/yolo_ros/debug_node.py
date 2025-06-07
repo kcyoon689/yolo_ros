@@ -36,7 +36,7 @@ from ultralytics.utils.plotting import Annotator, colors
 from sensor_msgs.msg import Image
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
-from yolo_msgs.msg import BoundingBox2D
+from vision_msgs.msg import BoundingBox2D
 from yolo_msgs.msg import KeyPoint2D
 from yolo_msgs.msg import KeyPoint3D
 from yolo_msgs.msg import Detection
@@ -142,12 +142,12 @@ class DebugNode(LifecycleNode):
         track_id = detection.id
 
         min_pt = (
-            round(box_msg.center.position.x - box_msg.size.x / 2.0),
-            round(box_msg.center.position.y - box_msg.size.y / 2.0),
+            round(box_msg.center.position.x - box_msg.size_x / 2.0),
+            round(box_msg.center.position.y - box_msg.size_y / 2.0),
         )
         max_pt = (
-            round(box_msg.center.position.x + box_msg.size.x / 2.0),
-            round(box_msg.center.position.y + box_msg.size.y / 2.0),
+            round(box_msg.center.position.x + box_msg.size_x / 2.0),
+            round(box_msg.center.position.y + box_msg.size_y / 2.0),
         )
 
         # define the four corners of the rectangle

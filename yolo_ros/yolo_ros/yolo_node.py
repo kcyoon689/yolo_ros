@@ -36,8 +36,8 @@ from ultralytics.engine.results import Keypoints
 
 from std_srvs.srv import SetBool
 from sensor_msgs.msg import Image
-from yolo_msgs.msg import Point2D
-from yolo_msgs.msg import BoundingBox2D
+from vision_msgs.msg import Point2D
+from vision_msgs.msg import BoundingBox2D
 from yolo_msgs.msg import Mask
 from yolo_msgs.msg import KeyPoint2D
 from yolo_msgs.msg import KeyPoint2DArray
@@ -247,8 +247,8 @@ class YoloNode(LifecycleNode):
                 box = box_data.xywh[0]
                 msg.center.position.x = float(box[0])
                 msg.center.position.y = float(box[1])
-                msg.size.x = float(box[2])
-                msg.size.y = float(box[3])
+                msg.size_x = float(box[2])
+                msg.size_y = float(box[3])
 
                 # append msg
                 boxes_list.append(msg)

@@ -9,7 +9,7 @@ float64 score
 string id
 
 # 2D bounding box surrounding the object in pixels
-yolo_msgs/BoundingBox2D bbox
+vision_msgs/BoundingBox2D bbox
 
 # 3D bounding box surrounding the object in meters
 yolo_msgs/BoundingBox3D bbox3d

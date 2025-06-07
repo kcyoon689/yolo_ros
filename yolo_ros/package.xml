@@ -15,6 +15,7 @@
   <depend>cv_bridge</depend>
   <depend>std_srvs</depend>
   <depend>sensor_msgs</depend>
+  <depend>vision_msgs</depend>
   <depend>yolo_msgs</depend>
 
   <export>
