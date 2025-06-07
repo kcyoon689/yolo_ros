@@ -146,7 +146,7 @@ These are the parameters from the [yolo.launch.py](./yolo_bringup/launch/yolo.la
 - **augment**: whether to enable test-time augmentation (TTA) for predictions improving detection robustness at the cost of speed (default: False)
 - **agnostic_nms**: whether to enable class-agnostic Non-Maximum Suppression (NMS) merging overlapping boxes of different classes (default: False)
 - **retina_masks**: whether to use high-resolution segmentation masks if available in the model, enhancing mask quality for segmentation (default: False)
-- **input_image_topic**: camera topic of RGB images (default: /camera/rgb/image_raw)
+- **input_image_topic**: camera topic of RGB images (default: /camera/camera/color/image_raw)
 - **image_reliability**: reliability for the image topic: 0=system default, 1=Reliable, 2=Best Effort (default: 1)
 - **input_depth_topic**: camera topic of depth images (default: /camera/depth/image_raw)
 - **depth_image_reliability**: reliability for the depth image topic: 0=system default, 1=Reliable, 2=Best Effort (default: 1)

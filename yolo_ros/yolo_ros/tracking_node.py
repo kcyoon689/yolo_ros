@@ -31,7 +31,8 @@ from cv_bridge import CvBridge
 from ultralytics.engine.results import Boxes
 from ultralytics.trackers.basetrack import BaseTrack
 from ultralytics.trackers import BOTSORT, BYTETracker
-from ultralytics.utils import IterableSimpleNamespace, yaml_load
+from ultralytics.utils import IterableSimpleNamespace
+import yaml
 from ultralytics.utils.checks import check_requirements, check_yaml
 
 from sensor_msgs.msg import Image
@@ -131,7 +132,10 @@ class TrackingNode(LifecycleNode):
         check_requirements("lap")  # for linear_assignment
 
         tracker = check_yaml(tracker_yaml)
-        cfg = IterableSimpleNamespace(**yaml_load(tracker))
+
+        with open(tracker, 'r') as f:
+            tracker_cfg_dict = yaml.safe_load(f)
+        cfg = IterableSimpleNamespace(**tracker_cfg_dict)
 
         assert cfg.tracker_type in [
             "bytetrack",
