@@ -43,6 +43,9 @@ def generate_launch_description():
                     "input_image_topic": LaunchConfiguration(
                         "input_image_topic", default="/camera/camera/color/image_raw"
                     ),
+                    "debug_image_topic": LaunchConfiguration(
+                        "debug_image_topic", default="/reprojection"
+                    ),
                     "image_reliability": LaunchConfiguration(
                         "image_reliability", default="1"
                     ),

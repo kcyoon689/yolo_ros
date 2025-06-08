@@ -141,6 +141,13 @@ def generate_launch_description():
             description="Name of the input image topic",
         )
 
+        debug_image_topic = LaunchConfiguration("debug_image_topic")
+        debug_image_topic_cmd = DeclareLaunchArgument(
+            "debug_image_topic",
+            default_value="/reprojection",
+            description="Name of the debug image topic",
+        )
+
         image_reliability = LaunchConfiguration("image_reliability")
         image_reliability_cmd = DeclareLaunchArgument(
             "image_reliability",
@@ -292,7 +299,7 @@ def generate_launch_description():
             namespace=namespace,
             parameters=[{"image_reliability": image_reliability}],
             remappings=[
-                ("image_raw", input_image_topic),
+                ("image_raw", debug_image_topic),
                 ("detections", debug_detections_topic),
             ],
             condition=IfCondition(PythonExpression([use_debug])),
@@ -315,6 +322,7 @@ def generate_launch_description():
             agnostic_nms_cmd,
             retina_masks_cmd,
             input_image_topic_cmd,
+            debug_image_topic_cmd,
             image_reliability_cmd,
             input_depth_topic_cmd,
             depth_image_reliability_cmd,
