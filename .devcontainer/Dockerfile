@@ -144,7 +144,14 @@ RUN apt-get -qq update \
 # python
 #
 
-RUN python3 -m pip install --upgrade pip
+RUN apt-get update \
+  && apt-get install -y python3-transforms3d ros-humble-tf-transformations ros-humble-vision-msgs \
+  && apt-get remove -y python3-sympy \
+  && python3 -m pip install --upgrade pip \
+  && pip install --upgrade sympy \
+  && pip install ultralytics pyquaternion numpy
+  # && pip install numpy==1.26.4
+
 
 # #
 # # jetson-stats
