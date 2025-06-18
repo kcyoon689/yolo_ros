@@ -335,8 +335,20 @@ class DebugNode(LifecycleNode):
         bb_marker_array = MarkerArray()
         kp_marker_array = MarkerArray()
 
-        detection: Detection
-        for detection in detection_msg.detections:
+        # ----------- "person" 클래스만 필터링 -----------
+        filtered_detections = [det for det in detection_msg.detections if det.class_name == "person"]
+        # 아무것도 없으면 바로 리턴
+        if not filtered_detections:
+            # 빈 이미지, 빈 마커 발행
+            self._dbg_pub.publish(
+                self.cv_bridge.cv2_to_imgmsg(cv_image, encoding="bgr8", header=img_msg.header)
+            )
+            self._bb_markers_pub.publish(bb_marker_array)
+            self._kp_markers_pub.publish(kp_marker_array)
+            return
+        # ---------------------------------------------
+
+        for detection in filtered_detections:
 
             # random color
             class_name = detection.class_name

@@ -187,11 +187,13 @@ class Detect3DNode(LifecycleNode):
     ) -> List[Detection]:
 
         # check if there are detections
-        if not detections_msg.detections:
+        # --- "person" 클래스만 필터링 ---
+        # class_name이 없는 경우, COCO 기준 "person" class_id == 0
+        filtered = [det for det in detections_msg.detections if det.class_name == "person"]
+        if not filtered:
             return []
 
         transform = self.get_transform(depth_info_msg.header.frame_id)
-
         if transform is None:
             return []
 
@@ -200,7 +202,7 @@ class Detect3DNode(LifecycleNode):
             depth_msg, desired_encoding="passthrough"
         )
 
-        for detection in detections_msg.detections:
+        for detection in filtered:
             bbox3d = self.convert_bb_to_3d(depth_image, depth_info_msg, detection)
 
             if bbox3d is not None:

@@ -153,6 +153,15 @@ class TrackingNode(LifecycleNode):
         cv_image = self.cv_bridge.imgmsg_to_cv2(img_msg, desired_encoding="bgr8")
         cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
 
+        # ----------- Filter detections: class_name == "person" -----------
+        person_detections = [d for d in detections_msg.detections if d.class_id == 0]
+        if not person_detections:
+            # 아무것도 없으면 바로 return
+            self._pub.publish(tracked_detections_msg)
+            return
+        # ---------------------------------------------------------------
+
+
         # parse detections
         detection_list = []
         detection: Detection
@@ -178,7 +187,7 @@ class TrackingNode(LifecycleNode):
             if len(tracks) > 0:
 
                 for t in tracks:
-
+                    # t[-1] is  detection index임
                     tracked_box = Boxes(t[:-1], (img_msg.height, img_msg.width))
                     tracked_detection: Detection = detections_msg.detections[int(t[-1])]
 
